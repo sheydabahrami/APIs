@@ -1,10 +1,13 @@
+import os
+import sys
 import numpy as np
 from flask import Flask, request, jsonify
 import joblib
 
 app = Flask(__name__)
-
-model = joblib.load(open('models/pipe_clf_checkpoint.joblib', 'rb'))
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
+my_file = os.path.join(THIS_FOLDER, 'models/pipe_clf_checkpoint.joblib')
+model = joblib.load(open(my_file, 'rb'))
 model_clf = model['pipeline_clf']
 
 @app.route('/api', methods=['POST'])
